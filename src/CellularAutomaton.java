@@ -33,12 +33,12 @@ class Patogen
 
 class Cell
 {
-	public int Ns;
-	public int Ni;
-	public int Nr;
-	public int E;
+	public int Ns;  //susceptible
+	public int Ni;  //infectious
+	public int Nr;  //recovered
+	public int E;   //exchanges
 
-	public double c;
+	public double c;  //contacts
 
 	public int tempS;
 	public int tempI;
@@ -57,28 +57,28 @@ class Cell
 		tempR = Nr;
 	}
 
-	public int Type()
+	public int Type()    //determines the type of an emigrant from the cell based on the current epidemioloc situation of the cell
 	{
 		double ps = (double)Ns / (double)(Ns + Ni + Nr), pi = (double)Ni / (double)(Ns + Ni + Nr), pr = (double)Nr / (double)(Ns + Ni + Nr);
 
 		double v = Generator.g.nextDouble();
 
 		if(v < pr)
-			return Status.S;
+			return Status.R;
 
 		v -= pr;
 
 		if(v < pi)
 			return Status.I;
 
-		return Status.R;
+		return Status.S;
 	}
 
-	public void exchange(final Cell neighbour)
+	public void exchange(final Cell neighbour)  //exchanges some subjects with an adjacent cell
 	{
 		int E = this.E;
 		if(E > neighbour.E)
-			E = neighbour.E;
+			E = neighbour.E;   //deciding how many people are exchanged
 
 		int s;
 
@@ -143,7 +143,7 @@ class Cell
 		}
 	}
 
-	public void evolve(Patogen p)
+	public void evolve(Patogen p)   //uses SIR equations to determine the new count of Susceptibles, Infectious, Recovered
 	{
 		int s = tempS, i = tempI, r = tempR;
 		double ps = (double)s / (double)(s + i + r), pi = (double)i / (double)(s + i + r), pr = (double)r / (double)(s + i + r);
@@ -180,7 +180,7 @@ class Cell
 	}
 }
 
-class MyCanvas extends Canvas
+class MyCanvas extends Canvas   //Map UI (more of a graphic than an UI since it isn't interactive ;) )
 {
 	Cell[][] A;
 	int H;
@@ -303,20 +303,22 @@ class CellularAutomaton
 
 	public static void main(String args[])
 	{
-
+		/* 
+		"drawing" the map
+		*/
 		background();
 		city(10, 10);
 		city(40, 40);
 		city(40, 10);
 		street(13, 10, 37, 10);
 
-		automaton[40][10] = new Cell(900, 100, 0, 30, 10);
+		automaton[40][10] = new Cell(900, 100, 0, 30, 10);  //epicenter of the epidemic
 
 
 		MyCanvas m = new MyCanvas(); 
 		m.addAutomaton(H, W, automaton);
-        JFrame f=new JFrame();  
-        f.add(m); 
+        	JFrame f=new JFrame();  
+        	f.add(m); 
 		f.setSize(500,500);
 		f.setVisible(true);
 
