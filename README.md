@@ -26,7 +26,7 @@ Every turn (an arbitrary amount of time which acquires sense in relation to the 
 The Cell class is the basic unit of the model. It has a predefined and fixed population which evolves through time on the base of a [SIR model](https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology#The_SIR_model).
 Despite the class is very flexible in the definition of population density, number of subjects exchanged with the neighbours on each turn and number of contacts of each inhabitant per turn (which are in fact arbitrary) I've thought of 3 standard environments, each represented by a function of the CellularAutomaton class:
 <br>
->> ### Cities <a name='cities' ></a> :city:
+>> ### Cities <a name='cities' ></a> 🏙️
 *Population:* **1000**   <br>
 *Exchanges:*    **30**   <br>
 *Contacts:*     **10**   <br>
