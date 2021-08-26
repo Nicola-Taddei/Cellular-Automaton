@@ -49,4 +49,14 @@ This cell type models a generic transportation route.
 
 This cell type models a rural or inhabited area, with very low population and exchanges to the other cells.
 <br>
+<br>
+<br>
+
+> Here is an example
+
+This is a gif of a specific simulation (the one with the paramenters currently hardcoded in the source).
+In this simulation there were 3 cities, 2 of which were linked by a street and the other was isolated. As you can see the epidec spreads from the epicenter (the city in the bottm left part to the linked city in the upper left part. The isolated city remains instead preserved from the contagion.
+<br>
+<br>
+![simulation](/screenshots/screenrecord.gif)
 
