@@ -36,9 +36,9 @@ class Cell
 	public int Ns;
 	public int Ni;
 	public int Nr;
-	public int E;  //exchange
+	public int E;
 
-	public double c;  // da modificare
+	public double c;
 
 	public int tempS;
 	public int tempI;
@@ -60,27 +60,6 @@ class Cell
 	public int Type()
 	{
 		double ps = (double)Ns / (double)(Ns + Ni + Nr), pi = (double)Ni / (double)(Ns + Ni + Nr), pr = (double)Nr / (double)(Ns + Ni + Nr);
-
-		/*
-		if(tempS <= 0)
-		{
-			ps = 0;
-			pi = pi * (double)(Ns + Ni + Nr) / (double)(Ni + Nr);
-			pr = pr * (double)(Ns + Ni + Nr) / (double)(Ni + Nr);
-		}
-		if(tempI <= 0)
-		{
-			ps = ;
-			pi = 0;
-			pr = (double)Nr / (double)(Ns + Nr);
-		}
-		if(tempR <= 0)
-		{
-			ps = (double)Ns / (double)(Ns + Ni);
-			pi = (double)Ni / (double)(Ns + Ni);
-			pr = 0;
-		}
-		*/
 
 		double v = Generator.g.nextDouble();
 
@@ -140,7 +119,7 @@ class Cell
 						neighbour.tempR += 1;
 						this.tempR -= 1;
 					}
-					//System.out.println("Infetto trasferito");
+					
 					break;
 				case Status.R:
 					if(this.tempR > 0)
@@ -194,22 +173,6 @@ class Cell
 		tempS += incr_S;
 		tempI += incr_I;
 		tempR += incr_R;
-
-
-		/*
-		if(tempS - (int)(p.infectionRate*c*i*s/(s + i + r)) < 0)
-		{
-			tempI += tempS - (int)(i*p.recoveryRate);
-			tempS = 0;
-		}
-		else
-		{
-			tempS -= (int)(p.infectionRate*c*i*s/(s + i + r));
-			tempI += (int)(p.infectionRate*c*i*s/(s + i + r)) - (int)(i*p.recoveryRate);
-		}
-		
-		tempR += ((int)i*p.recoveryRate);
-		*/
 
 		Ns = tempS;
 		Ni = tempI;
@@ -268,12 +231,12 @@ class MyCanvas extends Canvas
 
 class CellularAutomaton
 {
-	public static int H = 50;  // temp
-	public static int W = 50;  // temp
-	public static Cell[][] automaton = new Cell[H][W];  //new ?
+	public static int H = 50;
+	public static int W = 50;
+	public static Cell[][] automaton = new Cell[H][W];
 
-	static Patogen v = new Patogen(0.2, 0.5);  //0.2 - 0.5
-	//end temp
+	static Patogen v = new Patogen(0.2, 0.5);
+	
 
 	static boolean isInside(int i, int j)
 	{
@@ -340,23 +303,6 @@ class CellularAutomaton
 
 	public static void main(String args[])
 	{
-		//temporaneo e bruttissimo
-		/*
-		for(int i = 0; i < H; i++)
-		{
-			for(int j = 0; j < W; j++)
-			{
-				automaton[i][j] = new Cell(1000, 0, 0, 3, 25);
-			}
-		}
-
-		for(int j = 0; j < W; j++)
-		{
-			for(int i = 15; i < 20; i++)
-			{
-				automaton[i][j] = new Cell(30, 0, 0, 1, 1);
-			}
-		}*/
 
 		background();
 		city(10, 10);
@@ -365,8 +311,6 @@ class CellularAutomaton
 		street(13, 10, 37, 10);
 
 		automaton[40][10] = new Cell(900, 100, 0, 30, 10);
-
-		//fine
 
 
 		MyCanvas m = new MyCanvas(); 
@@ -380,24 +324,12 @@ class CellularAutomaton
 		while(true)
 		{
 			update();
-			/***************
-
-			for(int i = 0; i < H; i++)
-			{
-				for(int j = 0; j < W; j++)
-				{
-					System.out.print(automaton[i][j].Ni);
-					System.out.print("  ");
-				}
-				System.out.println();
-			}
-			System.out.println("\n\n");
-
-			****************/
+			
 			m.repaint();
 			f.repaint();
 			try{
-			Thread.sleep(500);}catch(InterruptedException e){}
+			Thread.sleep(500);
+			}catch(InterruptedException e){}
 		}
 	}
 }
